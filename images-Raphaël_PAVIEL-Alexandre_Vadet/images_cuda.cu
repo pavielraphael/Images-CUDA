@@ -7,7 +7,7 @@
 using namespace cv;
 
 
-__global__ void noiretblanc( unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes ) {
+__global__ void noiretblanc( unsigned char * in, unsigned char * out, int colonnes, int lignes ) {
   auto colonne = blockIdx.x * blockDim.x + threadIdx.x;
   auto ligne = blockIdx.y * blockDim.y + threadIdx.y;
 
@@ -26,7 +26,7 @@ __global__ void noiretblanc( unsigned char * in, unsigned char * out, std::size_
 }
 
 
-__global__ void retourner( unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes ) {
+__global__ void retourner( unsigned char * in, unsigned char * out, int colonnes, int lignes ) {
   auto colonne = blockIdx.x * blockDim.x + threadIdx.x;
   auto ligne = blockIdx.y * blockDim.y + threadIdx.y;
 
@@ -45,13 +45,13 @@ __global__ void retourner( unsigned char * in, unsigned char * out, std::size_t 
   }
 }
 
-__global__ void detectionContours(unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes) {
+__global__ void detectionContours(unsigned char * in, unsigned char * out, int colonnes, int lignes) {
   auto colonne = blockIdx.x * blockDim.x + threadIdx.x;
   auto ligne = blockIdx.y * blockDim.y + threadIdx.y;
 
   if (ligne >= 1 && ligne < lignes - 1 && colonne >= 1 && colonne < colonnes - 1)
   {
-      for (std::size_t i = 0; i < RGBSIZE; ++i)
+      for (int i = 0; i < RGBSIZE; ++i)
       {
           unsigned char p_h = in[RGBSIZE * ((ligne - 1) * colonnes + colonne) + i];
           unsigned char p_g = in[RGBSIZE * (ligne * colonnes + colonne - 1) + i];
@@ -73,13 +73,13 @@ __global__ void detectionContours(unsigned char * in, unsigned char * out, std::
   }
 }
 
-__global__ void ameliorationNettete(unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes) {
+__global__ void ameliorationNettete(unsigned char * in, unsigned char * out, int colonnes, int lignes) {
   auto colonne = blockIdx.x * blockDim.x + threadIdx.x;
   auto ligne = blockIdx.y * blockDim.y + threadIdx.y;
 
   if (ligne >= 1 && ligne < lignes - 1 && colonne >= 1 && colonne < colonnes - 1)
   {
-      for (std::size_t i = 0; i < RGBSIZE; ++i)
+      for (int i = 0; i < RGBSIZE; ++i)
       {
           unsigned char p_h = in[RGBSIZE * ((ligne - 1) * colonnes + colonne) + i];
           unsigned char p_g = in[RGBSIZE * (ligne * colonnes + colonne - 1) + i];
@@ -101,13 +101,13 @@ __global__ void ameliorationNettete(unsigned char * in, unsigned char * out, std
   }
 }
 
-__global__ void flou(unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes) {
+__global__ void flou(unsigned char * in, unsigned char * out, int colonnes, int lignes) {
   auto colonne = blockIdx.x * blockDim.x + threadIdx.x;
   auto ligne = blockIdx.y * blockDim.y + threadIdx.y;
 
   if (ligne >= 1 && ligne < lignes - 1 && colonne >= 1 && colonne < colonnes - 1)
   {
-      for (std::size_t i = 0; i < RGBSIZE; ++i)
+      for (int i = 0; i < RGBSIZE; ++i)
       {
           unsigned char p_hg = in[RGBSIZE * ((ligne - 1) * colonnes + colonne - 1) + i];
           unsigned char p_h = in[RGBSIZE * ((ligne - 1) * colonnes + colonne) + i];

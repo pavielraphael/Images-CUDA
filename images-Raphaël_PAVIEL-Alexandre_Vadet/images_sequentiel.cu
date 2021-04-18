@@ -7,7 +7,7 @@
 using namespace cv;
 
 
-void noiretblanc( unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes ) {
+void noiretblanc( unsigned char * in, unsigned char * out, int colonnes, int lignes ) {
   for(int ligne=1; ligne<lignes-1; ligne++)
   {
     for(int colonne=1; colonne<colonnes-1; colonne++)
@@ -29,7 +29,7 @@ void noiretblanc( unsigned char * in, unsigned char * out, std::size_t colonnes,
 }
 
 
-void retourner( unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes ) {
+void retourner( unsigned char * in, unsigned char * out, int colonnes, int lignes ) {
   for(int ligne=1; ligne<lignes-1; ligne++)
   {
     for(int colonne=1; colonne<colonnes-1; colonne++)
@@ -51,14 +51,14 @@ void retourner( unsigned char * in, unsigned char * out, std::size_t colonnes, s
   }
 }
 
-void detectionContours(unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes) {
+void detectionContours(unsigned char * in, unsigned char * out, int colonnes, int lignes) {
   for(int ligne=1; ligne<lignes-1; ligne++)
   {
     for(int colonne=1; colonne<colonnes-1; colonne++)
     {
       if (ligne >= 1 && ligne < lignes - 1 && colonne >= 1 && colonne < colonnes - 1)
       {
-          for (std::size_t i = 0; i < RGBSIZE; ++i)
+          for (int i = 0; i < RGBSIZE; ++i)
           {
               unsigned char p_h = in[RGBSIZE * ((ligne - 1) * colonnes + colonne) + i];
               unsigned char p_g = in[RGBSIZE * (ligne * colonnes + colonne - 1) + i];
@@ -82,14 +82,14 @@ void detectionContours(unsigned char * in, unsigned char * out, std::size_t colo
   }
 }
 
-void ameliorationNettete(unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes) {
+void ameliorationNettete(unsigned char * in, unsigned char * out, int colonnes, int lignes) {
   for(int ligne=1; ligne<lignes-1; ligne++)
   {
     for(int colonne=1; colonne<colonnes-1; colonne++)
     {
       if (ligne >= 1 && ligne < lignes - 1 && colonne >= 1 && colonne < colonnes - 1)
       {
-          for (std::size_t i = 0; i < RGBSIZE; ++i)
+          for (int i = 0; i < RGBSIZE; ++i)
           {
               unsigned char p_h = in[RGBSIZE * ((ligne - 1) * colonnes + colonne) + i];
               unsigned char p_g = in[RGBSIZE * (ligne * colonnes + colonne - 1) + i];
@@ -113,14 +113,14 @@ void ameliorationNettete(unsigned char * in, unsigned char * out, std::size_t co
   }
 }
 
-void flou(unsigned char * in, unsigned char * out, std::size_t colonnes, std::size_t lignes) {
+void flou(unsigned char * in, unsigned char * out, int colonnes, int lignes) {
   for(int ligne=1; ligne<lignes-1; ligne++)
   {
     for(int colonne=1; colonne<colonnes-1; colonne++)
     {
       if (ligne >= 1 && ligne < lignes - 1 && colonne >= 1 && colonne < colonnes - 1)
       {
-          for (std::size_t i = 0; i < RGBSIZE; ++i)
+          for (int i = 0; i < RGBSIZE; ++i)
           {
               unsigned char p_hg = in[RGBSIZE * ((ligne - 1) * colonnes + colonne - 1) + i];
               unsigned char p_h = in[RGBSIZE * ((ligne - 1) * colonnes + colonne) + i];
